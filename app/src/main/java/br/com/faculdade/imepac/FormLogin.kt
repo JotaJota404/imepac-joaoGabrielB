@@ -3,47 +3,62 @@ package br.com.faculdade.imepac
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import br.com.faculdade.imepac.databinding.ActivityFormLoginBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 class FormLogin : AppCompatActivity() {
 
-    private lateinit var binding: ActivityFormLoginBinding
+    private lateinit var edit_email: EditText
+    private lateinit var edit_senha: EditText
+    private lateinit var bt_entrar: Button
+    private lateinit var progressbar: ProgressBar
+    private lateinit var text_tela_cadastro: TextView
+
     private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFormLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_form_login)
 
         supportActionBar?.hide()
+        IniciarComponentes()
 
-        binding.textTelaCadastro.setOnClickListener {
+        text_tela_cadastro.setOnClickListener {
             val intent = Intent(this, FormCadastro::class.java)
             startActivity(intent)
         }
 
-        binding.btEntrada.setOnClickListener {
-            val email = binding.editEmailLogin.text.toString()
-            val senha = binding.editSenhaLogin.text.toString()
+        bt_entrar.setOnClickListener {
+            val email = edit_email.text.toString().trim()
+            val senha = edit_senha.text.toString().trim()
 
             if (email.isEmpty() || senha.isEmpty()) {
-                Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
+                Snackbar.make(it, "Preencha todos os campos!", Snackbar.LENGTH_LONG).show()
             } else {
-                binding.progressbar.visibility = View.VISIBLE
-                binding.btEntrada.isEnabled = false
-                
-                auth.signInWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        irParaTelaPrincipal()
-                    } else {
-                        binding.progressbar.visibility = View.GONE
-                        binding.btEntrada.isEnabled = true
-                        Toast.makeText(this, "Erro ao logar!", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                AutenticarUsuario(it)
+            }
+        }
+    }
+
+    private fun AutenticarUsuario(view: View) {
+        val email = edit_email.text.toString().trim()
+        val senha = edit_senha.text.toString().trim()
+
+        progressbar.visibility = View.VISIBLE
+        bt_entrar.isEnabled = false
+
+        auth.signInWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                irParaTelaPrincipal()
+            } else {
+                progressbar.visibility = View.GONE
+                bt_entrar.isEnabled = true
+                Snackbar.make(view, "Erro ao logar!", Snackbar.LENGTH_LONG).show()
             }
         }
     }
@@ -60,5 +75,13 @@ class FormLogin : AppCompatActivity() {
         if (usuarioAtual != null) {
             irParaTelaPrincipal()
         }
+    }
+
+    private fun IniciarComponentes() {
+        edit_email = findViewById(R.id.edit_email_login)
+        edit_senha = findViewById(R.id.edit_senha_login)
+        bt_entrar = findViewById(R.id.bt_entrar_login)
+        progressbar = findViewById(R.id.progressbar_login)
+        text_tela_cadastro = findViewById(R.id.text_tela_cadastro_login)
     }
 }

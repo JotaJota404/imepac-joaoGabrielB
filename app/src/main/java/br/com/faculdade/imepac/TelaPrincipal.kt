@@ -2,24 +2,31 @@ package br.com.faculdade.imepac
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import br.com.faculdade.imepac.databinding.ActivityTelaPrincipalBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class TelaPrincipal : AppCompatActivity() {
 
-    private lateinit var binding: ActivityTelaPrincipalBinding
+    private lateinit var text_boas_vindas: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTelaPrincipalBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_tela_principal)
 
         supportActionBar?.hide()
+        IniciarComponentes()
 
-        binding.textBoasVindas.setOnClickListener {
-            val intent = Intent(this, Tela_Perfil::class.java)
-            startActivity(intent)
+        text_boas_vindas.setOnClickListener {
+            irParaTelaPerfil()
         }
+    }
+
+    private fun irParaTelaPerfil() {
+        val intent = Intent(this, Tela_Perfil::class.java)
+        startActivity(intent)
+    }
+
+    private fun IniciarComponentes() {
+        text_boas_vindas = findViewById(R.id.text_boas_vindas)
     }
 }
