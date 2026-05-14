@@ -41,6 +41,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Nome"
                     android:inputType="textPersonName"
+                    android:drawableEnd="@drawable/ic_pessoa"
+                    android:drawablePadding="10dp"
                     android:layout_marginBottom="15dp"
                     android:autofillHints="personName" />
 
@@ -51,6 +53,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
+                    android:drawableEnd="@drawable/ic_email"
+                    android:drawablePadding="10dp"
                     android:layout_marginBottom="15dp"
                     android:autofillHints="emailAddress" />
 
@@ -61,6 +65,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Senha"
                     android:inputType="textPassword"
+                    android:drawableEnd="@drawable/ic_senha"
+                    android:drawablePadding="10dp"
                     android:layout_marginBottom="20dp"
                     android:autofillHints="password" />
 

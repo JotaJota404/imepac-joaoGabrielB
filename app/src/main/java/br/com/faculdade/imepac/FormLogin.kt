@@ -64,7 +64,7 @@ class FormLogin : AppCompatActivity() {
     }
 
     private fun irParaTelaPrincipal() {
-        val intent = Intent(this, TelaPrincipal::class.java)
+        val intent = Intent(this, TelaPerfil::class.java)
         startActivity(intent)
         finish()
     }

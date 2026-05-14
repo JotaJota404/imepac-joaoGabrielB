@@ -24,7 +24,7 @@
         </activity>
         <activity android:name=".FormCadastro" android:exported="false" />
         <activity android:name=".TelaPrincipal" android:exported="false" />
-        <activity android:name=".Tela_Perfil" android:exported="false" />
+        <activity android:name=".TelaPerfil" android:exported="false" />
     </application>
 
 </manifest>

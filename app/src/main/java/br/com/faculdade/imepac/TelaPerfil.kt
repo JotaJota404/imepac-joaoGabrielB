@@ -3,16 +3,16 @@ package br.com.faculdade.imepac
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class Tela_Perfil : AppCompatActivity() {
+class TelaPerfil : AppCompatActivity() {
 
-    private lateinit var text_nome: TextView
-    private lateinit var text_email: TextView
-    private lateinit var bt_deslogar: Button
+    private lateinit var textNomeUser: EditText
+    private lateinit var textEmailUser: EditText
+    private lateinit var bt_sair: Button
 
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
@@ -24,8 +24,8 @@ class Tela_Perfil : AppCompatActivity() {
         supportActionBar?.hide()
         IniciarComponentes()
 
-        bt_deslogar.setOnClickListener {
-            auth.signOut()
+        bt_sair.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, FormLogin::class.java)
             startActivity(intent)
             finish()
@@ -38,20 +38,22 @@ class Tela_Perfil : AppCompatActivity() {
     }
 
     private fun recuperarDadosUsuario() {
-        val usuarioID = auth.currentUser?.uid ?: return
+        val email = auth.currentUser?.email ?: return
 
-        db.collection("Usuarios").document(usuarioID)
-            .addSnapshotListener { documentSnapshot, error ->
-                if (documentSnapshot != null) {
-                    text_nome.text = documentSnapshot.getString("nome")
-                    text_email.text = documentSnapshot.getString("email")
+        db.collection("Usuarios").whereEqualTo("email", email)
+            .addSnapshotListener { querySnapshot, error ->
+                if (error != null) return@addSnapshotListener
+                val document = querySnapshot?.documents?.firstOrNull()
+                if (document != null) {
+                    textNomeUser.setText(document.getString("nome"))
+                    textEmailUser.setText(document.getString("email"))
                 }
             }
     }
 
     private fun IniciarComponentes() {
-        text_nome = findViewById(R.id.text_nome_usuario)
-        text_email = findViewById(R.id.text_email_usuario)
-        bt_deslogar = findViewById(R.id.bt_deslogar)
+        textNomeUser = findViewById(R.id.textNomeUser)
+        textEmailUser = findViewById(R.id.textEmailUser)
+        bt_sair = findViewById(R.id.bt_sair)
     }
 }
