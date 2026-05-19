@@ -1,46 +1,64 @@
-🏥 App de Gestão Clínica - Módulo de Autenticação
-📋 Sobre o Projeto
-Este projeto é uma aplicação mobile nativa Android desenvolvida como parte das avaliações práticas do curso de Análise e Desenvolvimento de Sistemas (ADS). O objetivo central desta primeira etapa ("Progresso do trabalho da faculdade") foi construir uma arquitetura de base sólida, segura e otimizada para um futuro Sistema de Gestão Clínica, garantindo as melhores práticas de UI/UX e persistência de dados em nuvem.
+# 🚀 Projeto Base Android - Arquitetura de Autenticação e Nuvem
 
-A aplicação foi projetada com foco absoluto em performance, utilizando ConstraintLayout para interfaces fluidas e integrando os serviços do Google Cloud (Firebase) com tratamento rigoroso de exceções e null-safety.
+<div align="center">
+  <img alt="Android" src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  <img alt="Kotlin" src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" />
+  <img alt="Firebase" src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase" />
+  <img alt="Android Studio" src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
+</div>
 
-✨ Funcionalidades Atuais (Fase 1)
-A infraestrutura inicial foca na jornada segura do usuário:
+<br>
 
-🔒 Autenticação Robusta: Sistema de Login e Cadastro utilizando Firebase Authentication.
+## 📋 Sobre o Projeto
 
-☁️ Persistência de Dados em Tempo Real: Integração com Cloud Firestore para salvar e recuperar informações do usuário de forma assíncrona (Nome, E-mail e UID).
+Este projeto é uma aplicação mobile nativa Android desenvolvida como parte das avaliações práticas do curso de Análise e Desenvolvimento de Sistemas (ADS). 
 
-🛡️ Tratamento de Erros Profissional: Validação de campos vazios, verificação de requisitos de senha e tratamento nativo de exceções do Firebase (ex: e-mail já em uso ou falha de rede) com feedback visual claro via Snackbar.
+O objetivo central desta fase inicial foi construir um **"Motor Base"** com uma arquitetura sólida, segura e otimizada. Em vez de focar imediatamente na regra de negócio, a prioridade foi estabelecer uma fundação de excelência em autenticação, design de interface (UI/UX) e persistência de dados em nuvem. 
 
-📱 UI/UX Otimizada: Layouts construídos inteiramente com ConstraintLayout, remoção de ActionBar nativa e campos estilizados com Vector Assets internos.
+Este repositório encontra-se **em desenvolvimento contínuo**. A base construída aqui servirá como ponto de partida escalável para uma futura aplicação comercial completa, cujo escopo principal (regras de negócio e funcionalidades centrais) ainda está sendo definido.
 
-🧭 Navegação Segura: Gestão inteligente do ciclo de vida das Activities (finish()), prevenindo o retorno acidental a telas de login ou cadastro após a autenticação.
+## ✨ O que já está funcionando (Fase Core)
 
-🛠️ Tecnologias Utilizadas
-Linguagem: Kotlin
+A infraestrutura atual garante a jornada segura e fluida do usuário:
 
-IDE: Android Studio
+* **🔒 Autenticação Robusta:** Sistema de Login e Cadastro utilizando `Firebase Authentication`.
+* **☁️ Persistência em Tempo Real:** Integração com `Cloud Firestore` para salvar e recuperar informações do usuário de forma assíncrona (Nome, E-mail e UID).
+* **🛡️ Tratamento de Erros Profissional:** Validação de campos vazios, verificação de requisitos de senha e tratamento nativo de exceções do Firebase (ex: e-mail já em uso) com feedback visual via `Snackbar`.
+* **📱 UI/UX Otimizada:** Layouts construídos inteiramente com `ConstraintLayout`, remoção de `ActionBar` nativa e campos estilizados com *Vector Assets*.
+* **🧭 Navegação Segura:** Gestão inteligente do ciclo de vida das Activities (`finish()`), prevenindo o retorno acidental a telas de login após a autenticação.
 
-BaaS (Backend as a Service): Firebase (Auth & Firestore)
+## 🚀 Próximos Passos (Roadmap Aberto)
 
-Design e UI: XML (ConstraintLayout, Material Components)
+Como o projeto está em evolução, o roadmap foca na expansão modular a partir desta base de segurança:
 
-⚙️ Como Executar o Projeto
-Para testar a aplicação na sua máquina, siga os passos abaixo:
+- [ ] 💡 Definição do escopo e nicho da aplicação principal.
+- [ ] 🎨 Criação do Dashboard (Tela Inicial) pós-login.
+- [ ] 🗄️ Expansão da modelagem de dados no Firestore.
+- [ ] 🏗️ Refatoração do código para arquitetura MVVM (Model-View-ViewModel).
 
-1. Clone este repositório:
-git clone https://github.com/JotaJota404/imepac-joaoGabrielB.git
+## 🛠️ Tecnologias e Ferramentas
 
-2. Abra o projeto:
-Inicie o Android Studio e selecione a pasta do projeto clonado.
+As seguintes tecnologias foram utilizadas na construção deste projeto base:
 
-3. Sincronize o Gradle:
-Aguarde o Android Studio baixar as dependências ou clique em Sync Project with Gradle Files.
+* **Linguagem:** Kotlin
+* **IDE:** Android Studio
+* **Backend as a Service (BaaS):** Firebase (Auth & Firestore)
+* **Design de Interface:** XML, ConstraintLayout, Material Components
+* **Controle de Versão:** Git & GitHub
 
-4. Execute o App:
-Conecte um emulador configurado para performance (ex: Pixel 2, API 30, sem Google Play) ou um dispositivo físico via Depuração USB e clique em Run (Shift + F10).
+## ⚙️ Como Executar o Projeto
 
-Aviso Importante: Certifique-se de ter o arquivo google-services.json válido na pasta app/ para que a conexão com os servidores do Firebase seja estabelecida corretamente.
+Para rodar esta base na sua máquina local:
 
-👨‍💻 Desenvolvido com dedicação por João Gabriel Graduando em Análise e Desenvolvimento de Sistemas
+1. Clone o repositório:
+   ```bash
+   git clone [https://github.com/JotaJota404/imepac-joaoGabrielB.git](https://github.com/JotaJota404/imepac-joaoGabrielB.git)
+2.Abra a pasta do projeto no Android Studio.
+
+3.Aguarde a sincronização do Gradle.
+
+4.Conecte um emulador ou dispositivo físico via Depuração USB e clique em Run (Shift + F10).
+
+Aviso Importante: Para que os serviços de nuvem funcionem, é necessário configurar o seu próprio banco de dados no Firebase e adicionar o arquivo google-services.json válido na pasta app/ do projeto.
+
+👨‍💻 Desenvolvido por João Gabriel | Graduando em Análise e Desenvolvimento de Sistemas
