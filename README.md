@@ -17,17 +17,6 @@ A infraestrutura inicial foca na jornada segura do usuário:
 
 🧭 Navegação Segura: Gestão inteligente do ciclo de vida das Activities (finish()), prevenindo o retorno acidental a telas de login ou cadastro após a autenticação.
 
-🚀 Próximos Passos (Roadmap)
-A arquitetura de segurança e banco de dados já está validada e implementada. As próximas etapas de desenvolvimento focarão na expansão das funcionalidades core do sistema de gestão, escalando a aplicação conforme novos requisitos:
-
-[ ] Criação do Dashboard Principal (Tela Home da Clínica).
-
-[ ] Módulo de Cadastro e Consulta de Pacientes (CRUD completo no Firestore).
-
-[ ] Sistema de Agendamento de Consultas.
-
-[ ] Refatoração e implementação de arquitetura MVVM.
-
 🛠️ Tecnologias Utilizadas
 Linguagem: Kotlin
 
