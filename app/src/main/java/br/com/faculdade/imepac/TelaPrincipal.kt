@@ -24,6 +24,7 @@ class TelaPrincipal : AppCompatActivity() {
     private fun irParaTelaPerfil() {
         val intent = Intent(this, TelaPerfil::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun IniciarComponentes() {

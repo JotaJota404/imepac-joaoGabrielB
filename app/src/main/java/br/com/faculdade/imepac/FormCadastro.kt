@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FormCadastro : AppCompatActivity() {
@@ -15,6 +19,7 @@ class FormCadastro : AppCompatActivity() {
     private lateinit var edit_email: EditText
     private lateinit var edit_senha: EditText
     private lateinit var bt_cadastrar: Button
+    private lateinit var progressbar: ProgressBar
 
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
@@ -26,51 +31,85 @@ class FormCadastro : AppCompatActivity() {
         supportActionBar?.hide()
         IniciarComponentes()
 
-        bt_cadastrar.setOnClickListener {
+        bt_cadastrar.setOnClickListener { view ->
             val nome = edit_nome.text.toString().trim()
             val email = edit_email.text.toString().trim()
             val senha = edit_senha.text.toString().trim()
 
             if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
-                Snackbar.make(it, "Preencha todos os campos!", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_LONG).show()
             } else {
-                cadastrarUsuario(it)
+                cadastrarUsuario(view, nome, email, senha)
             }
         }
     }
 
-    private fun cadastrarUsuario(view: View) {
-        val email = edit_email.text.toString().trim()
-        val senha = edit_senha.text.toString().trim()
+    private fun cadastrarUsuario(view: View, nome: String, email: String, senha: String) {
+        // Desativar botão e mostrar progresso para evitar cliques duplos
+        bt_cadastrar.isEnabled = false
+        progressbar.visibility = View.VISIBLE
 
-        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                salvarDadosUsuario()
-                Snackbar.make(view, "Sucesso ao cadastrar usuário!", Snackbar.LENGTH_LONG).show()
-            } else {
-                Snackbar.make(view, "Erro ao cadastrar usuário!", Snackbar.LENGTH_LONG).show()
+        auth.createUserWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Firebase criou o utilizador — agora gravar no Firestore
+                    salvarDadosUsuario(view, nome)
+                } else {
+                    // Reativar UI
+                    bt_cadastrar.isEnabled = true
+                    progressbar.visibility = View.GONE
+
+                    // Capturar o erro REAL do Firebase e exibir ao utilizador
+                    val mensagemErro = when (task.exception) {
+                        is FirebaseAuthUserCollisionException ->
+                            "Este e-mail já está em uso por outra conta."
+                        is FirebaseAuthWeakPasswordException ->
+                            "Senha fraca: use no mínimo 6 caracteres."
+                        is FirebaseAuthInvalidCredentialsException ->
+                            "Formato de e-mail inválido."
+                        else ->
+                            "Erro ao cadastrar: ${task.exception?.message ?: "Tente novamente."}"
+                    }
+                    Snackbar.make(view, mensagemErro, Snackbar.LENGTH_LONG).show()
+                }
             }
-        }
     }
 
-    private fun salvarDadosUsuario() {
-        val nome = edit_nome.text.toString().trim()
-        val email = FirebaseAuth.getInstance().currentUser?.email
-        val usuarioID = FirebaseAuth.getInstance().currentUser?.uid
+    private fun salvarDadosUsuario(view: View, nome: String) {
+        val usuario = auth.currentUser
 
-        val usuarios = hashMapOf(
+        // Proteção extra: se por algum motivo o currentUser for nulo, abortar
+        if (usuario == null) {
+            bt_cadastrar.isEnabled = true
+            progressbar.visibility = View.GONE
+            Snackbar.make(view, "Erro interno: utilizador não encontrado após registo.", Snackbar.LENGTH_LONG).show()
+            return
+        }
+
+        val email = usuario.email ?: ""
+        val usuarioID = usuario.uid
+
+        val dadosUsuario = hashMapOf(
             "nome" to nome,
             "email" to email,
             "uid" to usuarioID
         )
 
-        db.collection("Usuarios").add(usuarios)
+        db.collection("Usuarios").document(usuarioID).set(dadosUsuario)
             .addOnSuccessListener {
-                println("Sucesso ao salvar os dados")
+                // Tudo concluído com sucesso — fechar e voltar para o Login
+                Snackbar.make(view, "Cadastro realizado com sucesso!", Snackbar.LENGTH_SHORT).show()
                 finish()
             }
-            .addOnFailureListener {
-                println("Erro ao salvar os dados")
+            .addOnFailureListener { e ->
+                // Auth funcionou mas Firestore falhou — reativar UI e informar
+                bt_cadastrar.isEnabled = true
+                progressbar.visibility = View.GONE
+                Snackbar.make(
+                    view,
+                    "Conta criada, mas erro ao salvar dados: ${e.message}",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
     }
 
@@ -79,5 +118,6 @@ class FormCadastro : AppCompatActivity() {
         edit_email = findViewById(R.id.edit_email)
         edit_senha = findViewById(R.id.edit_senha)
         bt_cadastrar = findViewById(R.id.bt_cadastrar)
+        progressbar = findViewById(R.id.progressbar_cadastro)
     }
 }

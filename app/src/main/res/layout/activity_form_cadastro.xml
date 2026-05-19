@@ -77,6 +77,14 @@
                     android:layout_height="wrap_content"
                     android:text="Cadastrar" />
 
+                <ProgressBar
+                    android:id="@+id/progressbar_cadastro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp" />
+
             </LinearLayout>
 
         </LinearLayout>

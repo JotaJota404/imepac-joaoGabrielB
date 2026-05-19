@@ -41,13 +41,16 @@ class TelaPerfil : AppCompatActivity() {
         val email = auth.currentUser?.email ?: return
 
         db.collection("Usuarios").whereEqualTo("email", email)
-            .addSnapshotListener { querySnapshot, error ->
-                if (error != null) return@addSnapshotListener
-                val document = querySnapshot?.documents?.firstOrNull()
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val document = querySnapshot.documents.firstOrNull()
                 if (document != null) {
                     textNomeUser.setText(document.getString("nome"))
                     textEmailUser.setText(document.getString("email"))
                 }
+            }
+            .addOnFailureListener {
+                println("Erro ao recuperar dados do utilizador")
             }
     }
 

@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class FormLogin : AppCompatActivity() {
 
@@ -58,7 +60,13 @@ class FormLogin : AppCompatActivity() {
             } else {
                 progressbar.visibility = View.GONE
                 bt_entrar.isEnabled = true
-                Snackbar.make(view, "Erro ao logar!", Snackbar.LENGTH_LONG).show()
+
+                val mensagemErro = when (task.exception) {
+                    is FirebaseAuthInvalidUserException -> "Conta não encontrada ou desativada."
+                    is FirebaseAuthInvalidCredentialsException -> "E-mail ou senha incorretos."
+                    else -> "Erro ao realizar login: ${task.exception?.message}"
+                }
+                Snackbar.make(view, mensagemErro, Snackbar.LENGTH_LONG).show()
             }
         }
     }
