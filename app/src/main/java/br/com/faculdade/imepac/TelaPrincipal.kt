@@ -2,7 +2,8 @@ package br.com.faculdade.imepac
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -12,10 +13,10 @@ import java.util.Date
 class TelaPrincipal : AppCompatActivity() {
 
     private lateinit var text_boas_vindas: TextView
-    private lateinit var bt_cadastrar_livro: Button
-    private lateinit var bt_ver_lista: Button
-    private lateinit var bt_meu_perfil: Button
-    private lateinit var bt_seed: Button
+    private lateinit var bt_cadastrar_livro: LinearLayout
+    private lateinit var bt_lista_livros: LinearLayout
+    private lateinit var bt_meu_perfil: LinearLayout
+    private lateinit var bt_gerar_seed: LinearLayout
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -50,7 +51,7 @@ class TelaPrincipal : AppCompatActivity() {
             startActivity(intent)
         }
 
-        bt_ver_lista.setOnClickListener {
+        bt_lista_livros.setOnClickListener {
             val intent = Intent(this, TelaListaLivros::class.java)
             startActivity(intent)
         }
@@ -60,14 +61,14 @@ class TelaPrincipal : AppCompatActivity() {
             startActivity(intent)
         }
 
-        bt_seed.setOnClickListener { view ->
-            executarSeed(view as Button)
+        bt_gerar_seed.setOnClickListener { view ->
+            executarSeed(view)
         }
     }
 
-    private fun executarSeed(view: Button) {
+    private fun executarSeed(view: View) {
         view.isEnabled = false
-        view.text = "Inserindo dados..."
+        view.alpha = 0.3f
 
         var contadorSucesso = 0
         var contadorErro = 0
@@ -89,7 +90,7 @@ class TelaPrincipal : AppCompatActivity() {
                     // Só exibe o Snackbar quando todos os documentos forem processados
                     if (contadorSucesso + contadorErro == totalItens) {
                         view.isEnabled = true
-                        view.text = "⚙️  Gerar Dados de Teste (Seed)"
+                        view.alpha = 0.6f
                         Snackbar.make(
                             view,
                             "$contadorSucesso livros inseridos com sucesso!",
@@ -101,7 +102,7 @@ class TelaPrincipal : AppCompatActivity() {
                     contadorErro++
                     if (contadorSucesso + contadorErro == totalItens) {
                         view.isEnabled = true
-                        view.text = "⚙️  Gerar Dados de Teste (Seed)"
+                        view.alpha = 0.6f
                         Snackbar.make(
                             view,
                             "$contadorSucesso inseridos, $contadorErro com erro.",
@@ -115,8 +116,8 @@ class TelaPrincipal : AppCompatActivity() {
     private fun IniciarComponentes() {
         text_boas_vindas = findViewById(R.id.text_boas_vindas)
         bt_cadastrar_livro = findViewById(R.id.bt_cadastrar_livro)
-        bt_ver_lista = findViewById(R.id.bt_ver_lista)
+        bt_lista_livros = findViewById(R.id.bt_lista_livros)
         bt_meu_perfil = findViewById(R.id.bt_meu_perfil)
-        bt_seed = findViewById(R.id.bt_seed)
+        bt_gerar_seed = findViewById(R.id.bt_gerar_seed)
     }
 }

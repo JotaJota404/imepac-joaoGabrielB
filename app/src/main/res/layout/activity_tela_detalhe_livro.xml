@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,23 +16,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
+            android:padding="24dp"
             android:gravity="center_horizontal">
+
+            <!-- Placeholder de capa do livro -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_book_cover"
+                android:contentDescription="Capa do Livro" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
                 android:text="Detalhes do Livro"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textColor="@color/primaria"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edite ou exclua este título"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Card do formulário -->
             <LinearLayout
                 style="@style/ContainerComponents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <EditText
@@ -41,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Título"
                     android:inputType="textCapSentences"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="12dp"
                     android:autofillHints="no" />
 
                 <EditText
@@ -51,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Autor"
                     android:inputType="textPersonName"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="12dp"
                     android:autofillHints="no" />
 
                 <EditText
@@ -64,11 +82,13 @@
                     android:layout_marginBottom="20dp"
                     android:autofillHints="no" />
 
+                <!-- Botão Salvar (âmbar) -->
                 <Button
                     android:id="@+id/bt_salvar_alteracoes"
                     style="@style/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:text="Salvar Alterações" />
 
                 <ProgressBar
@@ -77,7 +97,25 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:visibility="gone"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Divisor sutil -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/primaria_alpha30"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Botão Excluir (vermelho) -->
+                <Button
+                    android:id="@+id/bt_excluir_livro"
+                    style="@style/button_perigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Excluir Livro"
+                    android:drawableStart="@drawable/ic_delete"
+                    android:drawablePadding="8dp" />
 
             </LinearLayout>
 

@@ -5,8 +5,8 @@
     <item android:state_pressed="true">
         <shape>
             <gradient
-                android:startColor="@color/primaria_escura"
-                android:endColor="#A06A0A"
+                android:startColor="@color/perigo_escuro"
+                android:endColor="#8B2020"
                 android:angle="0" />
             <corners android:radius="12dp" />
         </shape>
@@ -20,12 +20,12 @@
         </shape>
     </item>
 
-    <!-- Estado: normal (padrão) -->
+    <!-- Estado: normal -->
     <item>
         <shape>
             <gradient
-                android:startColor="@color/primaria"
-                android:endColor="@color/primaria_escura"
+                android:startColor="@color/perigo"
+                android:endColor="@color/perigo_escuro"
                 android:angle="0" />
             <corners android:radius="12dp" />
         </shape>

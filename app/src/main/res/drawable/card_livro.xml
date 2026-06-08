@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shape: Card da lista de livros com faixa âmbar na borda esquerda -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Sombra sutil (camada de baixo, deslocada) -->
+    <item
+        android:top="2dp"
+        android:left="2dp">
+        <shape>
+            <solid android:color="#22000000" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+
+    <!-- Fundo do card escuro -->
+    <item>
+        <shape>
+            <solid android:color="@color/fundo_card" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+
+    <!-- Faixa âmbar na borda esquerda (4dp) -->
+    <item android:right="16dp" android:top="0dp" android:bottom="0dp">
+        <shape>
+            <solid android:color="@color/primaria" />
+            <corners
+                android:topLeftRadius="12dp"
+                android:bottomLeftRadius="12dp"
+                android:topRightRadius="0dp"
+                android:bottomRightRadius="0dp" />
+            <size android:width="4dp" />
+        </shape>
+    </item>
+
+</layer-list>

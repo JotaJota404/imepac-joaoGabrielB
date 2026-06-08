@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,23 +16,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
+            android:padding="24dp"
             android:gravity="center_horizontal">
+
+            <!-- Placeholder visual de capa -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_add_book"
+                android:contentDescription="Cadastrar Livro"
+                android:tint="@color/primaria" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
                 android:text="Cadastrar Livro"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textColor="@color/primaria"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adicione um novo título à sua biblioteca"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Card do formulário -->
             <LinearLayout
                 style="@style/ContainerComponents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
                 <EditText
@@ -41,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Título do Livro"
                     android:inputType="textCapSentences"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="12dp"
                     android:autofillHints="no" />
 
                 <EditText
@@ -51,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Autor"
                     android:inputType="textPersonName"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="12dp"
                     android:autofillHints="no" />
 
                 <EditText

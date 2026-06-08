@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Cores base do sistema -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="azul_imepac">#004A8D</color>
-    <color name="azul_claro">#007BFF</color>
-    <color name="cinza">#D3D3D3</color>
+
+    <!-- === PALETA "DARK LIBRARY" === -->
+
+    <!-- Fundos -->
+    <color name="fundo_escuro">#12122A</color>
+    <color name="fundo_card">#1E1E3F</color>
+    <color name="fundo_campo">#2A2A4A</color>
+
+    <!-- Cor Primária: Âmbar Dourado -->
+    <color name="primaria">#F5A623</color>
+    <color name="primaria_escura">#C17D0F</color>
+    <color name="primaria_alpha30">#4DF5A623</color>
+
+    <!-- Textos -->
+    <color name="texto_principal">#F0EDE6</color>
+    <color name="texto_secundario">#9E9EC0</color>
+
+    <!-- Ação de perigo (Sair, Excluir) -->
+    <color name="perigo">#E05252</color>
+    <color name="perigo_escuro">#B03030</color>
+
+    <!-- Sucesso / Confirmação -->
+    <color name="sucesso">#4ECDC4</color>
+
+    <!-- Compatibilidade com código existente (não remover) -->
+    <color name="azul_imepac">#12122A</color>
+    <color name="azul_claro">#1E1E3F</color>
+    <color name="cinza">#9E9EC0</color>
 </resources>

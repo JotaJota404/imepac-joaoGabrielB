@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,6 +16,7 @@ class TelaDetalheLivro : AppCompatActivity() {
     private lateinit var edit_autor_detalhe: EditText
     private lateinit var edit_ano_detalhe: EditText
     private lateinit var bt_salvar_alteracoes: Button
+    private lateinit var bt_excluir_livro: Button
     private lateinit var progressbar_detalhe: ProgressBar
 
     private val db = FirebaseFirestore.getInstance()
@@ -51,6 +53,17 @@ class TelaDetalheLivro : AppCompatActivity() {
             } else {
                 salvarAlteracoes(view, titulo, autor, ano)
             }
+        }
+
+        bt_excluir_livro.setOnClickListener { view ->
+            AlertDialog.Builder(this)
+                .setTitle("Excluir Livro")
+                .setMessage("Tem certeza que deseja excluir este livro? Esta ação não pode ser desfeita.")
+                .setPositiveButton("Excluir") { _, _ ->
+                    excluirLivro(view)
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
     }
 
@@ -120,11 +133,32 @@ class TelaDetalheLivro : AppCompatActivity() {
             }
     }
 
+    private fun excluirLivro(view: View) {
+        progressbar_detalhe.visibility = View.VISIBLE
+        bt_excluir_livro.isEnabled = false
+        bt_salvar_alteracoes.isEnabled = false
+
+        // DELETE: remove o documento pelo ID
+        db.collection("Livros").document(livroId)
+            .delete()
+            .addOnSuccessListener {
+                Snackbar.make(view, "Livro excluído com sucesso!", Snackbar.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener { e ->
+                progressbar_detalhe.visibility = View.GONE
+                bt_excluir_livro.isEnabled = true
+                bt_salvar_alteracoes.isEnabled = true
+                Snackbar.make(view, "Erro ao excluir: ${e.message}", Snackbar.LENGTH_LONG).show()
+            }
+    }
+
     private fun IniciarComponentes() {
         edit_titulo_detalhe = findViewById(R.id.edit_titulo_detalhe)
         edit_autor_detalhe = findViewById(R.id.edit_autor_detalhe)
         edit_ano_detalhe = findViewById(R.id.edit_ano_detalhe)
         bt_salvar_alteracoes = findViewById(R.id.bt_salvar_alteracoes)
+        bt_excluir_livro = findViewById(R.id.bt_excluir_livro)
         progressbar_detalhe = findViewById(R.id.progressbar_detalhe)
     }
 }

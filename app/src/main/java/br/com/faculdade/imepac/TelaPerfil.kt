@@ -3,15 +3,15 @@ package br.com.faculdade.imepac
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TelaPerfil : AppCompatActivity() {
 
-    private lateinit var textNomeUser: EditText
-    private lateinit var textEmailUser: EditText
+    private lateinit var textNomeUser: TextView
+    private lateinit var textEmailUser: TextView
     private lateinit var bt_sair: Button
 
     private val auth = FirebaseAuth.getInstance()

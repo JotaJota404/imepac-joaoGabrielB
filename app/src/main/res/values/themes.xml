@@ -1,9 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Imepac" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- Tema base: forçar modo escuro independente da preferência do sistema -->
+    <style name="Base.Theme.Imepac" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Cor primária do sistema (usada por ProgressBar, CheckBox, etc.) -->
+        <item name="colorPrimary">@color/primaria</item>
+        <item name="colorPrimaryVariant">@color/primaria_escura</item>
+        <item name="colorOnPrimary">@color/fundo_escuro</item>
+
+        <!-- Superfícies e fundos do sistema -->
+        <item name="colorSurface">@color/fundo_card</item>
+        <item name="colorOnSurface">@color/texto_principal</item>
+        <item name="android:colorBackground">@color/fundo_escuro</item>
+
+        <!-- Cor de destaque (ripple, sliders) -->
+        <item name="colorSecondary">@color/primaria</item>
+        <item name="colorAccent" tools:ignore="PrivateResource">@color/primaria</item>
+
+        <!-- StatusBar e NavigationBar escuros -->
+        <item name="android:statusBarColor">@color/fundo_escuro</item>
+        <item name="android:navigationBarColor">@color/fundo_escuro</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
     <style name="Theme.Imepac" parent="Base.Theme.Imepac" />
+
 </resources>

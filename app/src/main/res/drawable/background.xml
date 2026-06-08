@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
-        android:startColor="@color/azul_imepac"
-        android:endColor="@color/azul_claro"
-        android:angle="45" />
+        android:startColor="@color/fundo_escuro"
+        android:centerColor="#1A1A35"
+        android:endColor="@color/fundo_card"
+        android:angle="135" />
 </shape>
