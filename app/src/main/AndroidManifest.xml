@@ -13,18 +13,38 @@
         android:theme="@style/Theme.Imepac"
         android:usesCleartextTraffic="true"
         android:enableOnBackInvokedCallback="true">
+
+        <!-- TELA 1: Splash — Ponto de entrada do app (LAUNCHER) -->
         <activity
-            android:name=".FormLogin"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- TELA 2: Login -->
+        <activity android:name=".FormLogin" android:exported="false" />
+
+        <!-- TELA 3: Cadastro de Usuário -->
         <activity android:name=".FormCadastro" android:exported="false" />
+
+        <!-- TELA 4: Menu Principal -->
         <activity android:name=".TelaPrincipal" android:exported="false" />
+
+        <!-- TELA 5: Perfil do Usuário -->
         <activity android:name=".TelaPerfil" android:exported="false" />
+
+        <!-- TELA 6: Cadastro de Livro -->
+        <activity android:name=".FormCadastroLivro" android:exported="false" />
+
+        <!-- TELA 7: Lista Paginada de Livros -->
+        <activity android:name=".TelaListaLivros" android:exported="false" />
+
+        <!-- TELA 8: Detalhe e Edição de Livro -->
+        <activity android:name=".TelaDetalheLivro" android:exported="false" />
+
     </application>
 
 </manifest>

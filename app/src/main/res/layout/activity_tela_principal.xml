@@ -4,18 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".TelaPrincipal">
 
     <TextView
         android:id="@+id/text_boas_vindas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bem-vindo ao aplicativo IMEPAC!"
-        android:textSize="20sp"
+        android:layout_marginTop="60dp"
+        android:text="Meus Livros"
+        android:textColor="@color/white"
+        android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="O que você quer fazer hoje?"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:alpha="0.85"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_boas_vindas" />
+
+    <LinearLayout
+        android:id="@+id/container_botoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+
+        <Button
+            android:id="@+id/bt_cadastrar_livro"
+            style="@style/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="📚  Cadastrar Livro" />
+
+        <Button
+            android:id="@+id/bt_ver_lista"
+            style="@style/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="🔍  Ver Lista de Livros" />
+
+        <Button
+            android:id="@+id/bt_meu_perfil"
+            style="@style/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="👤  Meu Perfil" />
+
+        <Button
+            android:id="@+id/bt_seed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/container_components"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:padding="10dp"
+            android:text="⚙️  Gerar Dados de Teste (Seed)" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
