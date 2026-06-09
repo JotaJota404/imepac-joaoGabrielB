@@ -21,9 +21,9 @@
     <!-- Container do avatar (clicável para trocar foto) -->
     <FrameLayout
         android:id="@+id/container_avatar"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="55dp"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginTop="53dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -31,17 +31,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Foto de perfil / avatar padrão -->
-        <ImageView
+        <!--
+            ShapeableImageView faz o clip circular REAL da foto.
+            Sem ele, o Android só exibe a foto como retângulo sobre o background oval.
+            O strokeColor/Width recriam a borda âmbar do avatar_border.xml.
+        -->
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ic_person"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_pessoa"
-            android:tint="@color/primaria"
-            android:background="@drawable/avatar_border"
-            android:padding="20dp"
             android:scaleType="centerCrop"
+            android:padding="3dp"
+            app:shapeAppearanceOverlay="@style/AvatarCircle"
+            app:strokeColor="@color/primaria"
+            app:strokeWidth="3dp"
             android:contentDescription="Foto de Perfil" />
 
         <!-- Badge de câmera — indica que a foto é editável -->

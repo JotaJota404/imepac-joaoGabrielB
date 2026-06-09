@@ -9,12 +9,12 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -23,9 +23,9 @@ class TelaPerfil : AppCompatActivity() {
     private lateinit var textNomeUser: TextView
     private lateinit var textEmailUser: TextView
     private lateinit var bt_sair: Button
-    private lateinit var ic_person: ImageView
+    private lateinit var ic_person: ShapeableImageView   // ShapeableImageView faz clip circular real
     private lateinit var container_avatar: FrameLayout
-    private lateinit var bt_voltar: ImageView
+    private lateinit var bt_voltar: android.widget.ImageView
 
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
@@ -39,27 +39,23 @@ class TelaPerfil : AppCompatActivity() {
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         uri?.let {
-            // Solicita permissão persistente para ler o URI mesmo após reiniciar o app
+            // Tenta obter permissão persistente de leitura do URI (nem todo URI suporta)
             try {
                 contentResolver.takePersistableUriPermission(
                     it,
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
                 )
-            } catch (e: Exception) {
-                // Alguns URIs (ex: Google Fotos temporários) não suportam persistência
-                // A foto ainda será carregada na sessão atual
+            } catch (_: Exception) {
+                // Alguns provedores (ex: Google Fotos temp.) não suportam — a foto
+                // ainda funciona na sessão atual, mas pode não persistir entre reinícios.
             }
-            // Define a imagem no ImageView
-            ic_person.setImageURI(it)
-            ic_person.clearColorFilter() // Remove o tint após selecionar foto real
-            ic_person.setPadding(0, 0, 0, 0)
-            ic_person.scaleType = ImageView.ScaleType.CENTER_CROP
-            // Salva o URI no SharedPreferences para persistência
+            aplicarFoto(it)
+            // Salva o URI para persistência entre sessões
             prefs.edit().putString(PREF_KEY_FOTO, it.toString()).apply()
         }
     }
 
-    // Launcher para solicitar permissão de mídia
+    // Launcher para solicitar permissão de acesso à galeria
     private val solicitarPermissaoLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { concedida ->
@@ -68,7 +64,7 @@ class TelaPerfil : AppCompatActivity() {
         } else {
             Toast.makeText(
                 this,
-                "Permissão necessária para acessar a galeria",
+                "Permissão de galeria necessária para alterar a foto",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -79,26 +75,26 @@ class TelaPerfil : AppCompatActivity() {
         setContentView(R.layout.activity_tela_perfil)
 
         supportActionBar?.hide()
-        prefs = getSharedPreferences("imepac_prefs", MODE_PRIVATE)
+        prefs = getSharedPreferences("livraria_pessoal_prefs", MODE_PRIVATE)
         IniciarComponentes()
 
-        // Carrega foto salva anteriormente
+        // Carrega foto salva anteriormente (se houver)
         carregarFotoSalva()
 
-        bt_voltar.setOnClickListener {
-            finish()
-        }
+        bt_voltar.setOnClickListener { finish() }
 
         bt_sair.setOnClickListener {
-            // Limpa a foto ao sair (opcional — mantemos para não mostrar foto de outro usuário)
+            // Remove a foto salva ao sair — evita exibir foto de outro usuário
             prefs.edit().remove(PREF_KEY_FOTO).apply()
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, FormLogin::class.java)
+            // Limpa o back stack para o usuário não voltar sem autenticar
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
 
-        // Ao tocar no avatar, abre o seletor de imagem
+        // Abre seletor de imagem ao tocar no avatar
         container_avatar.setOnClickListener {
             verificarPermissaoEAbrirGaleria()
         }
@@ -109,19 +105,33 @@ class TelaPerfil : AppCompatActivity() {
         recuperarDadosUsuario()
     }
 
+    /**
+     * Aplica a foto selecionada no ShapeableImageView.
+     * Remove qualquer tint/filtro de cor anterior e garante scaleType correto.
+     */
+    private fun aplicarFoto(uri: Uri) {
+        ic_person.setImageURI(uri)
+        // Crítico: remove o tint âmbar definido no ícone padrão via código (se houver)
+        // imageTintList = null é o método correto para ShapeableImageView
+        ic_person.imageTintList = null
+        ic_person.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+        // Remove o padding que era necessário apenas para o ícone genérico
+        ic_person.setPadding(0, 0, 0, 0)
+    }
+
     private fun carregarFotoSalva() {
-        val uriString = prefs.getString(PREF_KEY_FOTO, null)
-        if (uriString != null) {
-            try {
-                val uri = Uri.parse(uriString)
-                ic_person.setImageURI(uri)
-                ic_person.clearColorFilter()
-                ic_person.setPadding(0, 0, 0, 0)
-                ic_person.scaleType = ImageView.ScaleType.CENTER_CROP
-            } catch (e: Exception) {
-                // URI inválido ou expirado — mantém ícone padrão
-                prefs.edit().remove(PREF_KEY_FOTO).apply()
+        val uriString = prefs.getString(PREF_KEY_FOTO, null) ?: return
+        try {
+            val uri = Uri.parse(uriString)
+            // Verifica se o URI ainda é acessível antes de exibir
+            contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    aplicarFoto(uri)
+                }
             }
+        } catch (e: Exception) {
+            // URI expirado ou inválido — limpa e mantém ícone padrão
+            prefs.edit().remove(PREF_KEY_FOTO).apply()
         }
     }
 
@@ -131,14 +141,10 @@ class TelaPerfil : AppCompatActivity() {
         } else {
             Manifest.permission.READ_EXTERNAL_STORAGE
         }
-
-        when {
-            ContextCompat.checkSelfPermission(this, permissao) == PackageManager.PERMISSION_GRANTED -> {
-                abrirGaleria()
-            }
-            else -> {
-                solicitarPermissaoLauncher.launch(permissao)
-            }
+        if (ContextCompat.checkSelfPermission(this, permissao) == PackageManager.PERMISSION_GRANTED) {
+            abrirGaleria()
+        } else {
+            solicitarPermissaoLauncher.launch(permissao)
         }
     }
 
@@ -148,18 +154,17 @@ class TelaPerfil : AppCompatActivity() {
 
     private fun recuperarDadosUsuario() {
         val email = auth.currentUser?.email ?: return
-
         db.collection("Usuarios").whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 val document = querySnapshot.documents.firstOrNull()
                 if (document != null) {
-                    textNomeUser.setText(document.getString("nome"))
-                    textEmailUser.setText(document.getString("email"))
+                    textNomeUser.text = document.getString("nome") ?: ""
+                    textEmailUser.text = document.getString("email") ?: ""
                 }
             }
             .addOnFailureListener {
-                println("Erro ao recuperar dados do utilizador")
+                // Falha silenciosa — dados serão carregados no próximo onStart
             }
     }
 

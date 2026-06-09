@@ -38,10 +38,13 @@ class FormCadastroLivro : AppCompatActivity() {
             val autor = edit_autor_livro.text.toString().trim()
             val ano = edit_ano_livro.text.toString().trim()
 
-            if (titulo.isEmpty() || autor.isEmpty() || ano.isEmpty()) {
-                Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_LONG).show()
-            } else {
-                salvarLivro(view, titulo, autor, ano)
+            when {
+                titulo.isEmpty() || autor.isEmpty() || ano.isEmpty() ->
+                    Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_LONG).show()
+                !validarAno(ano) ->
+                    Snackbar.make(view, "Ano inválido. Informe um ano entre 1000 e o ano atual.", Snackbar.LENGTH_LONG).show()
+                else ->
+                    salvarLivro(view, titulo, autor, ano)
             }
         }
     }
@@ -81,6 +84,16 @@ class FormCadastroLivro : AppCompatActivity() {
         edit_autor_livro.text.clear()
         edit_ano_livro.text.clear()
         edit_titulo_livro.requestFocus()
+    }
+
+    /**
+     * Valida se o ano é um número inteiro entre 1000 e o ano atual.
+     * Impede inserção de datas absurdas ou strings malformadas.
+     */
+    private fun validarAno(ano: String): Boolean {
+        val anoInt = ano.toIntOrNull() ?: return false
+        val anoAtual = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)
+        return anoInt in 1000..anoAtual
     }
 
     private fun IniciarComponentes() {

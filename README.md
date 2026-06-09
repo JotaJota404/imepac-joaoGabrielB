@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📚 Meus Livros
+# 📚 Livraria Pessoal
 
 <img alt="Android" src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
 <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" />
@@ -11,12 +11,12 @@
 
 <br/>
 
-> **Catálogo pessoal de livros** com autenticação Firebase, CRUD completo no Firestore,  
-> busca em tempo real, foto de perfil e design premium *"Dark Library"*.
+> **Livraria Pessoal** — Catálogo pessoal de livros com autenticação Firebase, CRUD completo no Firestore,  
+> busca em tempo real, foto de perfil circular, navegação ergonômica e design premium *"Dark Library"*.
 
 <br/>
 
-*Trabalho Final de Análise e Desenvolvimento de Sistemas — IMEPAC*
+_Trabalho Final de Análise e Desenvolvimento de Sistemas — IMEPAC_
 
 </div>
 
@@ -28,55 +28,63 @@
 
 O projeto evoluiu em três fases:
 
-| Fase | Foco | Status |
-|:---:|---|:---:|
+|   Fase   | Foco                                                                          | Status |
+| :------: | ----------------------------------------------------------------------------- | :----: |
 | **v1.0** | Arquitetura base: autenticação Firebase, Activities, navegação | ✅ |
 | **v2.0** | CRUD completo, listas paginadas e design profissional *"Dark Library"* | ✅ |
 | **v3.0** | Melhorias UX/UI: busca de livros, foto de perfil, botão de voltar e nova logo | ✅ |
+| **v3.1** | Rename para *"Livraria Pessoal"*, correção da foto circular, segurança e validações | ✅ |
 
 ---
 
 ## ✨ Funcionalidades
 
 ### 🔒 Autenticação
+
 - Cadastro de usuário com nome, e-mail e senha via **Firebase Authentication**
 - Login com validação de credenciais e tratamento de erros específicos
 - Sessão persistente: usuário autenticado é redirecionado direto ao menu
 - Logout seguro com limpeza de sessão e foto de perfil
 
 ### 📚 Gerenciamento de Livros (CRUD Completo)
+
 - **Create** — Cadastro de livros com título, autor e ano de publicação
 - **Read** — Listagem paginada com `RecyclerView` + paginação incremental no Firestore
 - **Update** — Edição completa dos dados de qualquer livro da lista
 - **Delete** — Exclusão com diálogo de confirmação (`AlertDialog`)
 
-### 🔍 Busca de Livros *(novo — v3.0)*
+### 🔍 Busca de Livros _(novo — v3.0)_
+
 - Campo de busca em **tempo real** no topo da lista de livros
 - Filtra simultaneamente por **título**, **autor** ou **ano** (case-insensitive)
 - Botão **"X"** para limpar a busca instantaneamente
 - Mensagem "Nenhum livro encontrado" exibida quando não há resultados
 - Paginação pausada automaticamente durante a busca
 
-### 📸 Foto de Perfil *(novo — v3.0)*
+### 📸 Foto de Perfil _(novo — v3.0)_
+
 - Avatar clicável na tela de perfil com **badge de câmera**
 - Seleção de foto diretamente da **galeria nativa** do Android
 - Foto salva localmente com **SharedPreferences** — persiste entre sessões
 - Compatível com **Android 13+** (`READ_MEDIA_IMAGES`) e versões anteriores
 - Foto removida automaticamente ao fazer logout
 
-### 🔙 Navegação Ergonômica *(novo — v3.0)*
+### 🔙 Navegação Ergonômica _(novo — v3.0)_
+
 - **Botão de voltar** em todas as telas secundárias
 - Posicionamento inteligente seguindo as diretrizes de UX:
   - **Formulários com scroll** → canto superior esquerdo (fixo sobre o conteúdo)
   - **Listas e Perfil** → canto inferior esquerdo (zona do polegar — ergonomia de uma mão)
 - Área de toque mínima de **48dp** conforme Material Design
 
-### 🎨 Nova Logo *(novo — v3.0)*
+### 🎨 Nova Logo _(novo — v3.0)_
+
 - Livro aberto dourado com páginas e linhas de texto estilizadas
 - Mesma identidade visual no **ícone do launcher** (tela inicial do dispositivo) e **dentro do app**
 - Vetor nativo — sem perda de qualidade em nenhuma densidade de tela
 
 ### ⚙️ Extras
+
 - **Seed de dados** — botão para popular o banco com 15 livros clássicos de teste
 - **Paginação** — carregamento incremental com `ProgressBar` de rodapé
 
@@ -84,37 +92,38 @@ O projeto evoluiu em três fases:
 
 ## 📱 Telas do App
 
-| # | Activity | Descrição |
-|:---:|---|---|
-| 1 | `SplashActivity` | Tela de abertura com nova logo animada |
-| 2 | `FormLogin` | Login com e-mail e senha |
-| 3 | `FormCadastro` | Criação de conta de usuário |
-| 4 | `TelaPrincipal` | Menu principal com navegação por cards |
-| 5 | `TelaListaLivros` | Lista paginada com busca em tempo real e botão de voltar |
-| 6 | `TelaDetalheLivro` | Visualização, edição e exclusão de livro + botão de voltar |
-| 7 | `TelaPerfil` | Dados do usuário, foto de perfil e botão de voltar |
-| 8 | `FormCadastroLivro` | Formulário de cadastro de livro + botão de voltar |
+|  #  | Activity            | Descrição                                                  |
+| :-: | ------------------- | ---------------------------------------------------------- |
+|  1  | `SplashActivity`    | Tela de abertura com nova logo animada                     |
+|  2  | `FormLogin`         | Login com e-mail e senha                                   |
+|  3  | `FormCadastro`      | Criação de conta de usuário                                |
+|  4  | `TelaPrincipal`     | Menu principal com navegação por cards                     |
+|  5  | `TelaListaLivros`   | Lista paginada com busca em tempo real e botão de voltar   |
+|  6  | `TelaDetalheLivro`  | Visualização, edição e exclusão de livro + botão de voltar |
+|  7  | `TelaPerfil`        | Dados do usuário, foto de perfil e botão de voltar         |
+|  8  | `FormCadastroLivro` | Formulário de cadastro de livro + botão de voltar          |
 
 ---
 
-## 🎨 Design System — *"Dark Library"*
+## 🎨 Design System — _"Dark Library"_
 
 O app adota o tema **"Dark Library"**, inspirado na estética premium de apps literários como Kindle e Apple Books, implementado com **Material Design 3** e recursos XML nativos — sem bibliotecas de UI externas.
 
 ### Paleta de Cores
 
-| Token | Nome | Hex | Uso |
-|---|---|:---:|---|
-| `fundo_escuro` | Azul Meia-Noite | `#12122A` | Fundo de todas as telas |
-| `fundo_card` | Azul Escuro Suave | `#1E1E3F` | Cards e containers |
-| `primaria` | Âmbar Dourado | `#F5A623` | Botões, títulos, destaques, logo |
-| `primaria_escura` | Âmbar Queimado | `#C17D0F` | Gradiente e lombada da logo |
-| `texto_principal` | Branco Quente | `#F0EDE6` | Textos em geral |
-| `texto_secundario` | Cinza Lavanda | `#9E9EC0` | Subtítulos, hints, ícones inativos |
-| `perigo` | Vermelho Coral | `#E05252` | Excluir e Sair |
-| `sucesso` | Verde Menta | `#4ECDC4` | Confirmações |
+| Token              | Nome              |    Hex    | Uso                                |
+| ------------------ | ----------------- | :-------: | ---------------------------------- |
+| `fundo_escuro`     | Azul Meia-Noite   | `#12122A` | Fundo de todas as telas            |
+| `fundo_card`       | Azul Escuro Suave | `#1E1E3F` | Cards e containers                 |
+| `primaria`         | Âmbar Dourado     | `#F5A623` | Botões, títulos, destaques, logo   |
+| `primaria_escura`  | Âmbar Queimado    | `#C17D0F` | Gradiente e lombada da logo        |
+| `texto_principal`  | Branco Quente     | `#F0EDE6` | Textos em geral                    |
+| `texto_secundario` | Cinza Lavanda     | `#9E9EC0` | Subtítulos, hints, ícones inativos |
+| `perigo`           | Vermelho Coral    | `#E05252` | Excluir e Sair                     |
+| `sucesso`          | Verde Menta       | `#4ECDC4` | Confirmações                       |
 
 ### Componentes de Design
+
 - **Botão primário** — Gradiente âmbar horizontal com `selector` (3 estados: normal, pressionado, desabilitado)
 - **Botão de perigo** — Gradiente vermelho coral para ações destrutivas
 - **Cards** — Fundo escuro + borda âmbar semitransparente (efeito glassmorphism sem biblioteca)
@@ -127,21 +136,21 @@ O app adota o tema **"Dark Library"**, inspirado na estética premium de apps li
 
 ## 🛠️ Tecnologias
 
-| Tecnologia | Detalhe |
-|---|---|
-| **Linguagem** | Kotlin |
-| **IDE** | Android Studio |
-| **Min SDK** | API 24 (Android 7.0) |
-| **Target SDK** | API 34 (Android 14) |
-| **Autenticação** | Firebase Authentication |
-| **Banco de Dados** | Cloud Firestore (NoSQL) |
-| **Persistência Local** | SharedPreferences (foto de perfil) |
-| **Design System** | Material Design 3 (`Theme.Material3.Dark`) |
-| **Layouts** | ConstraintLayout, LinearLayout, CardView, FrameLayout |
-| **Lista** | RecyclerView com Adapter customizado e filtro em tempo real |
-| **Galeria** | `ActivityResultContracts.GetContent` |
-| **Feedback UI** | Snackbar, ProgressBar, AlertDialog |
-| **Controle de Versão** | Git & GitHub |
+| Tecnologia             | Detalhe                                                     |
+| ---------------------- | ----------------------------------------------------------- |
+| **Linguagem**          | Kotlin                                                      |
+| **IDE**                | Android Studio                                              |
+| **Min SDK**            | API 24 (Android 7.0)                                        |
+| **Target SDK**         | API 34 (Android 14)                                         |
+| **Autenticação**       | Firebase Authentication                                     |
+| **Banco de Dados**     | Cloud Firestore (NoSQL)                                     |
+| **Persistência Local** | SharedPreferences (foto de perfil)                          |
+| **Design System**      | Material Design 3 (`Theme.Material3.Dark`)                  |
+| **Layouts**            | ConstraintLayout, LinearLayout, CardView, FrameLayout       |
+| **Lista**              | RecyclerView com Adapter customizado e filtro em tempo real |
+| **Galeria**            | `ActivityResultContracts.GetContent`                        |
+| **Feedback UI**        | Snackbar, ProgressBar, AlertDialog                          |
+| **Controle de Versão** | Git & GitHub                                                |
 
 ---
 
@@ -187,6 +196,7 @@ app/src/main/
 ## ⚙️ Como Executar
 
 ### Pré-requisitos
+
 - Android Studio Hedgehog (2023.1.1) ou superior
 - JDK 17+
 - Dispositivo físico ou emulador com **API 24+**
@@ -194,6 +204,7 @@ app/src/main/
 ### Passos
 
 1. **Clone o repositório:**
+
    ```bash
    git clone https://github.com/JotaJota404/imepac-joaoGabrielB.git
    cd imepac-joaoGabrielB
@@ -235,7 +246,17 @@ Firestore
 
 ## 📝 Histórico de Versões
 
-### v3.0 — Melhorias UX/UI *(atual)*
+### v3.1 — Segurança & Polimento *(atual)*
+- ✅ Rename do app: "Meus Livros" → **"Livraria Pessoal"** em todas as telas
+- ✅ Correção da foto de perfil: `ShapeableImageView` com clip circular real e `imageTintList = null`
+- ✅ Validação de ano nos formulários (range 1000–ano atual)
+- ✅ R8/ProGuard habilitado em builds de release (ofuscação + minificação)
+- ✅ Regras ProGuard para Firebase (Authentication + Firestore)
+- ✅ Logout seguro com `FLAG_ACTIVITY_CLEAR_TASK` (impede volta sem autenticar)
+- ✅ SharedPreferences com validação de URI antes de carregar a foto
+
+### v3.0 — Melhorias UX/UI_
+
 - ✅ Busca de livros em tempo real (título, autor, ano)
 - ✅ Foto de perfil selecionável da galeria com persistência local
 - ✅ Botão de voltar em todas as telas secundárias (ergonomia por zona de toque)
@@ -243,12 +264,14 @@ Firestore
 - ✅ Permissões de mídia para Android 13+ e anteriores
 
 ### v2.0 — CRUD & Design
+
 - ✅ CRUD completo com Firebase Firestore
 - ✅ Lista paginada com scroll infinito
-- ✅ Design system *"Dark Library"* completo
+- ✅ Design system _"Dark Library"_ completo
 - ✅ Seed de dados de teste
 
 ### v1.0 — Base
+
 - ✅ Autenticação Firebase (cadastro e login)
 - ✅ Estrutura de Activities e navegação
 - ✅ Layout inicial das telas
@@ -268,6 +291,6 @@ Graduando em Análise e Desenvolvimento de Sistemas — IMEPAC
 
 <div align="center">
 
-*Projeto acadêmico — Trabalho Final ADS — IMEPAC 2025/2026*
+_Projeto acadêmico — Trabalho Final ADS — IMEPAC 2024/2026_
 
 </div>

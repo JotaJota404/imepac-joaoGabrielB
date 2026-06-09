@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meus Livros"
+            android:text="Livraria Pessoal"
             android:textColor="@color/primaria"
             android:textSize="32sp"
             android:textStyle="bold"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="40dp"
-            android:text="Sua biblioteca pessoal"
+            android:text="Seu acervo literário pessoal"
             android:textColor="@color/texto_secundario"
             android:textSize="14sp" />
 
