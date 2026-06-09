@@ -19,6 +19,9 @@ class AdapterLivros(
     private val onItemClick: (Livro) -> Unit
 ) : RecyclerView.Adapter<AdapterLivros.LivroViewHolder>() {
 
+    // Lista completa (sem filtro) para restaurar após limpar a busca
+    private val listaCompleta = mutableListOf<Livro>()
+
     inner class LivroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textTitulo: TextView = itemView.findViewById(R.id.text_titulo_livro)
         val textAutor: TextView = itemView.findViewById(R.id.text_autor_livro)
@@ -48,6 +51,31 @@ class AdapterLivros(
     fun adicionarItens(novosItens: List<Livro>) {
         val posicaoInicial = listaLivros.size
         listaLivros.addAll(novosItens)
+        listaCompleta.addAll(novosItens)
         notifyItemRangeInserted(posicaoInicial, novosItens.size)
     }
+
+    /**
+     * Filtra a lista exibida pelo query informado.
+     * Busca por título, autor ou ano (case-insensitive, contains).
+     * Passar query vazio restaura a lista completa.
+     */
+    fun filtrar(query: String) {
+        listaLivros.clear()
+        if (query.isBlank()) {
+            listaLivros.addAll(listaCompleta)
+        } else {
+            val q = query.trim().lowercase()
+            val filtrado = listaCompleta.filter { livro ->
+                livro.titulo.lowercase().contains(q) ||
+                livro.autor.lowercase().contains(q) ||
+                livro.ano.lowercase().contains(q)
+            }
+            listaLivros.addAll(filtrado)
+        }
+        notifyDataSetChanged()
+    }
+
+    /** Retorna true se a busca filtrou a lista (não está mostrando todos) */
+    fun estaFiltrado(): Boolean = listaLivros.size != listaCompleta.size
 }

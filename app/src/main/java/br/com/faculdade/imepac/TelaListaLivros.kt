@@ -2,8 +2,13 @@ package br.com.faculdade.imepac
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +22,10 @@ class TelaListaLivros : AppCompatActivity() {
     private lateinit var recycler_livros: RecyclerView
     private lateinit var progressbar_lista: ProgressBar
     private lateinit var progressbar_paginacao: ProgressBar
+    private lateinit var edit_busca_livro: EditText
+    private lateinit var bt_limpar_busca: ImageView
+    private lateinit var text_sem_resultado: TextView
+    private lateinit var bt_voltar: ImageView
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -37,7 +46,36 @@ class TelaListaLivros : AppCompatActivity() {
         supportActionBar?.hide()
         IniciarComponentes()
         configurarRecyclerView()
+        configurarBusca()
         carregarPrimeiraPagina()
+
+        bt_voltar.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun configurarBusca() {
+        edit_busca_livro.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val query = s?.toString() ?: ""
+                // Mostra/esconde o botão de limpar
+                bt_limpar_busca.visibility = if (query.isNotEmpty()) View.VISIBLE else View.GONE
+                // Filtra a lista
+                adapterLivros.filtrar(query)
+                // Mostra mensagem se nenhum resultado
+                text_sem_resultado.visibility =
+                    if (adapterLivros.itemCount == 0 && query.isNotEmpty()) View.VISIBLE else View.GONE
+            }
+        })
+
+        bt_limpar_busca.setOnClickListener {
+            edit_busca_livro.text.clear()
+            edit_busca_livro.clearFocus()
+            bt_limpar_busca.visibility = View.GONE
+            text_sem_resultado.visibility = View.GONE
+        }
     }
 
     private fun configurarRecyclerView() {
@@ -57,8 +95,9 @@ class TelaListaLivros : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                // Só carrega mais se estiver rolando para baixo
+                // Só carrega mais se estiver rolando para baixo e não estiver em modo de busca
                 if (dy <= 0) return
+                if (edit_busca_livro.text.isNotEmpty()) return
 
                 val totalItens = layoutManager.itemCount
                 val ultimoVisivel = layoutManager.findLastVisibleItemPosition()
@@ -174,5 +213,9 @@ class TelaListaLivros : AppCompatActivity() {
         recycler_livros = findViewById(R.id.recycler_livros)
         progressbar_lista = findViewById(R.id.progressbar_lista)
         progressbar_paginacao = findViewById(R.id.progressbar_paginacao)
+        edit_busca_livro = findViewById(R.id.edit_busca_livro)
+        bt_limpar_busca = findViewById(R.id.bt_limpar_busca)
+        text_sem_resultado = findViewById(R.id.text_sem_resultado)
+        bt_voltar = findViewById(R.id.bt_voltar_lista)
     }
 }

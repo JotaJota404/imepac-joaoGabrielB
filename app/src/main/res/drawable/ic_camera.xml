@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Corpo da câmera -->
+    <path
+        android:fillColor="#F5A623"
+        android:pathData="M23,19a2,2 0,0 1,-2 2L3,21a2,2 0,0 1,-2 -2L1,8a2,2 0,0 1,2 -2l4,0 2,-3 6,0 2,3 4,0a2,2 0,0 1,2 2z" />
+    <!-- Lente da câmera (círculo externo) -->
+    <path
+        android:fillColor="#12122A"
+        android:pathData="M12,13m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <!-- Lente interna -->
+    <path
+        android:fillColor="#F5A623"
+        android:fillAlpha="0.7"
+        android:pathData="M12,13m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" />
+</vector>

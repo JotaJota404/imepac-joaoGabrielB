@@ -3,6 +3,7 @@ package br.com.faculdade.imepac
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ class FormCadastroLivro : AppCompatActivity() {
     private lateinit var edit_ano_livro: EditText
     private lateinit var bt_salvar_livro: Button
     private lateinit var progressbar_cadastro_livro: ProgressBar
+    private lateinit var bt_voltar: ImageView
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -26,6 +28,10 @@ class FormCadastroLivro : AppCompatActivity() {
 
         supportActionBar?.hide()
         IniciarComponentes()
+
+        bt_voltar.setOnClickListener {
+            finish()
+        }
 
         bt_salvar_livro.setOnClickListener { view ->
             val titulo = edit_titulo_livro.text.toString().trim()
@@ -83,5 +89,6 @@ class FormCadastroLivro : AppCompatActivity() {
         edit_ano_livro = findViewById(R.id.edit_ano_livro)
         bt_salvar_livro = findViewById(R.id.bt_salvar_livro)
         progressbar_cadastro_livro = findViewById(R.id.progressbar_cadastro_livro)
+        bt_voltar = findViewById(R.id.bt_voltar_cadastro_livro)
     }
 }

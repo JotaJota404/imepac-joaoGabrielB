@@ -8,7 +8,7 @@
     android:background="@drawable/background"
     tools:context=".TelaListaLivros">
 
-    <!-- Header -->
+    <!-- Header: título + subtítulo -->
     <TextView
         android:id="@+id/text_titulo_lista"
         android:layout_width="0dp"
@@ -49,21 +49,77 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_subtitulo_lista" />
 
+    <!-- Campo de busca estilizado -->
+    <LinearLayout
+        android:id="@+id/container_busca"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/container_components"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divisor_lista">
+
+        <!-- Ícone lupa -->
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_list_books"
+            android:alpha="0.6"
+            android:contentDescription="Pesquisar"
+            android:tint="@color/texto_secundario" />
+
+        <EditText
+            android:id="@+id/edit_busca_livro"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:hint="Pesquisar por título, autor ou ano..."
+            android:textColor="@color/texto_principal"
+            android:textSize="13sp"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <!-- Botão limpar busca (X) -->
+        <ImageView
+            android:id="@+id/bt_limpar_busca"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_delete"
+            android:tint="@color/texto_secundario"
+            android:alpha="0.6"
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Limpar busca" />
+
+    </LinearLayout>
+
     <!-- RecyclerView da lista -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_livros"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="80dp"
         android:clipToPadding="false"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divisor_lista"
+        app:layout_constraintTop_toBottomOf="@id/container_busca"
         tools:listitem="@layout/item_livro" />
 
     <!-- ProgressBar central (carregamento inicial) -->
@@ -82,10 +138,40 @@
         android:id="@+id/progressbar_paginacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="88dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Texto "nenhum resultado" -->
+    <TextView
+        android:id="@+id/text_sem_resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nenhum livro encontrado"
+        android:textColor="@color/texto_secundario"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/container_busca" />
+
+    <!-- Botão de voltar — canto inferior esquerdo (zona de polegar) -->
+    <ImageView
+        android:id="@+id/bt_voltar_lista"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_arrow_back"
+        android:background="@drawable/container_components"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="14dp"
+        android:contentDescription="Voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,27 +18,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Avatar com borda dourada -->
-    <ImageView
-        android:id="@+id/ic_person"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/ic_pessoa"
-        android:tint="@color/primaria"
-        android:background="@drawable/avatar_border"
-        android:padding="20dp"
-        android:contentDescription="Foto de Perfil"
+    <!-- Container do avatar (clicável para trocar foto) -->
+    <FrameLayout
+        android:id="@+id/container_avatar"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="55dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Foto de perfil / avatar padrão -->
+        <ImageView
+            android:id="@+id/ic_person"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_pessoa"
+            android:tint="@color/primaria"
+            android:background="@drawable/avatar_border"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Foto de Perfil" />
+
+        <!-- Badge de câmera — indica que a foto é editável -->
+        <ImageView
+            android:id="@+id/badge_camera"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_camera"
+            android:background="@drawable/container_components"
+            android:padding="4dp"
+            android:contentDescription="Alterar foto" />
+
+    </FrameLayout>
+
+    <!-- Texto auxiliar "Toque para alterar a foto" -->
+    <TextView
+        android:id="@+id/text_alterar_foto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Toque para alterar a foto"
+        android:textColor="@color/texto_secundario"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_avatar" />
 
     <!-- Nome do usuário -->
     <TextView
         android:id="@+id/textNomeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="Nome do Usuário"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -46,7 +83,7 @@
         android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ic_person" />
+        app:layout_constraintTop_toBottomOf="@+id/text_alterar_foto" />
 
     <!-- E-mail -->
     <TextView
@@ -122,6 +159,22 @@
         android:drawablePadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Botão de voltar — canto inferior esquerdo (zona de polegar) -->
+    <ImageView
+        android:id="@+id/bt_voltar_perfil"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_arrow_back"
+        android:background="@drawable/container_components"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="14dp"
+        android:contentDescription="Voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

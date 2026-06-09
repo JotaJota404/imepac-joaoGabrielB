@@ -3,6 +3,7 @@ package br.com.faculdade.imepac
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +19,7 @@ class TelaDetalheLivro : AppCompatActivity() {
     private lateinit var bt_salvar_alteracoes: Button
     private lateinit var bt_excluir_livro: Button
     private lateinit var progressbar_detalhe: ProgressBar
+    private lateinit var bt_voltar: ImageView
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -30,6 +32,10 @@ class TelaDetalheLivro : AppCompatActivity() {
 
         supportActionBar?.hide()
         IniciarComponentes()
+
+        bt_voltar.setOnClickListener {
+            finish()
+        }
 
         // Recebe o ID do documento enviado pela TelaListaLivros
         livroId = intent.getStringExtra("LIVRO_ID") ?: ""
@@ -160,5 +166,6 @@ class TelaDetalheLivro : AppCompatActivity() {
         bt_salvar_alteracoes = findViewById(R.id.bt_salvar_alteracoes)
         bt_excluir_livro = findViewById(R.id.bt_excluir_livro)
         progressbar_detalhe = findViewById(R.id.progressbar_detalhe)
+        bt_voltar = findViewById(R.id.bt_voltar_detalhe)
     }
 }
