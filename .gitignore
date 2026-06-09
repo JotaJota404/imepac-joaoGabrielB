@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Firebase — contém API keys, NÃO versionar
+google-services.json

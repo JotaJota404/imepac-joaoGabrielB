@@ -26,14 +26,15 @@ _Trabalho Final de Análise e Desenvolvimento de Sistemas — IMEPAC_
 
 **Meus Livros** é um aplicativo Android nativo desenvolvido como **Trabalho Final** da disciplina de desenvolvimento mobile do curso de Análise e Desenvolvimento de Sistemas (ADS) — IMEPAC.
 
-O projeto evoluiu em três fases:
+O projeto evoluiu em quatro fases:
 
 |   Fase   | Foco                                                                          | Status |
 | :------: | ----------------------------------------------------------------------------- | :----: |
-| **v1.0** | Arquitetura base: autenticação Firebase, Activities, navegação | ✅ |
-| **v2.0** | CRUD completo, listas paginadas e design profissional *"Dark Library"* | ✅ |
-| **v3.0** | Melhorias UX/UI: busca de livros, foto de perfil, botão de voltar e nova logo | ✅ |
-| **v3.1** | Rename para *"Livraria Pessoal"*, correção da foto circular, segurança e validações | ✅ |
+| **v1.0** | Base do App: autenticação Firebase, Activities e navegação inicial             | ✅ |
+| **v2.0** | CRUD Firestore completo, listagem paginada e design *"Dark Library"*          | ✅ |
+| **v3.0** | Melhorias UX: busca de livros, foto de perfil, botão voltar ergonômico e logo | ✅ |
+| **v3.1** | Rename para *"Livraria Pessoal"*, ajuste do avatar, validações e R8/ProGuard   | ✅ |
+| **v3.2** | Busca Direta (SELECT de 1 registro) e proteção contra vazamento de credenciais | ✅ |
 
 ---
 
@@ -102,6 +103,7 @@ O projeto evoluiu em três fases:
 |  6  | `TelaDetalheLivro`  | Visualização, edição e exclusão de livro + botão de voltar |
 |  7  | `TelaPerfil`        | Dados do usuário, foto de perfil e botão de voltar         |
 |  8  | `FormCadastroLivro` | Formulário de cadastro de livro + botão de voltar          |
+|  9  | `TelaBuscaDireta`   | Busca de 1 registro por título com botão voltar ergonômico  |
 
 ---
 
@@ -167,6 +169,7 @@ app/src/main/
 │   ├── TelaDetalheLivro.kt       # Detalhe, edição e exclusão de livro
 │   ├── FormCadastroLivro.kt      # Formulário de cadastro de livro
 │   ├── TelaPerfil.kt             # Perfil + foto de perfil selecionável  ← v3.0
+│   ├── TelaBuscaDireta.kt        # Busca de 1 registro (SELECT limitado a 1) ← v3.2
 │   └── AdapterLivros.kt          # Adapter com filtro de busca            ← v3.0
 │
 └── res/
@@ -180,6 +183,7 @@ app/src/main/
     │   ├── activity_tela_detalhe_livro.xml   ← v3.0 (botão voltar)
     │   ├── activity_tela_perfil.xml          ← v3.0 (avatar clicável + botão voltar)
     │   ├── activity_form_cadastro_livro.xml  ← v3.0 (botão voltar)
+    │   ├── activity_tela_busca_direta.xml    ← v3.2 (busca direta de 1 registro)
     │   └── item_livro.xml
     │
     └── drawable/
@@ -246,7 +250,12 @@ Firestore
 
 ## 📝 Histórico de Versões
 
-### v3.1 — Segurança & Polimento *(atual)*
+### v3.2 — Busca Direta & Segurança *(atual)*
+- ✅ **9ª Tela (Busca Direta)**: Adicionado campo de busca por título exato com consulta `.limit(1)` no Firestore (SELECT de 1 registro).
+- ✅ **Prevenção de Vazamento**: Remoção do arquivo `google-services.json` do controle de versão via Git para proteger credenciais do Firebase.
+- ✅ **Ajustes de Navegação**: Inclusão de botão voltar ergonômico e integração na `TelaPrincipal`.
+
+### v3.1 — Segurança & Polimento
 - ✅ Rename do app: "Meus Livros" → **"Livraria Pessoal"** em todas as telas
 - ✅ Correção da foto de perfil: `ShapeableImageView` com clip circular real e `imageTintList = null`
 - ✅ Validação de ano nos formulários (range 1000–ano atual)

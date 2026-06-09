@@ -51,6 +51,9 @@
         <!-- TELA 8: Detalhe e Edição de Livro -->
         <activity android:name=".TelaDetalheLivro" android:exported="false" />
 
+        <!-- TELA 9: Busca Direta (SELECT de 1 registro) -->
+        <activity android:name=".TelaBuscaDireta" android:exported="false" />
+
     </application>
 
 </manifest>

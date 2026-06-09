@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".TelaBuscaDireta">
+
+    <!-- Título da tela -->
+    <TextView
+        android:id="@+id/text_titulo_busca"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Busca Direta"
+        android:textColor="@color/texto_principal"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_subtitulo_busca"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="4dp"
+        android:text="Encontre um livro específico"
+        android:textColor="@color/texto_secundario"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_titulo_busca" />
+
+    <!-- Divisor âmbar -->
+    <View
+        android:id="@+id/divisor_busca"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/primaria"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_subtitulo_busca" />
+
+    <!-- Card de busca -->
+    <LinearLayout
+        android:id="@+id/card_busca"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/container_components"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divisor_busca">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Buscar por título exato"
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08" />
+
+        <EditText
+            android:id="@+id/edit_busca_direta"
+            style="@style/Edit_Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite o título do livro..."
+            android:inputType="textCapSentences"
+            android:imeOptions="actionSearch"
+            android:layout_marginBottom="14dp"
+            android:autofillHints="no" />
+
+        <Button
+            android:id="@+id/bt_buscar"
+            style="@style/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Buscar Livro" />
+
+        <ProgressBar
+            android:id="@+id/progressbar_busca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+    <!-- Card de resultado — visível apenas quando há resultado -->
+    <LinearLayout
+        android:id="@+id/card_resultado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/container_components"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_busca">
+
+        <!-- Cabeçalho do resultado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_book_cover"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Livro encontrado" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Registro encontrado"
+                android:textColor="@color/sucesso"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.05" />
+
+        </LinearLayout>
+
+        <!-- Separador -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primaria_alpha30"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Linha: Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TÍTULO"
+            android:textColor="@color/texto_secundario"
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/text_resultado_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primaria"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Linha: Autor -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AUTOR"
+            android:textColor="@color/texto_secundario"
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/text_resultado_autor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/texto_principal"
+            android:textSize="15sp"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Linha: Ano -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ANO DE PUBLICAÇÃO"
+            android:textColor="@color/texto_secundario"
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/text_resultado_ano"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/texto_principal"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <!-- Mensagem "nenhum resultado" -->
+    <TextView
+        android:id="@+id/text_nenhum_resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Nenhum livro encontrado com esse título."
+        android:textColor="@color/texto_secundario"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_busca" />
+
+    <!-- Botão voltar — canto inferior esquerdo (zona de polegar) -->
+    <ImageView
+        android:id="@+id/bt_voltar_busca"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_arrow_back"
+        android:background="@drawable/container_components"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="14dp"
+        android:contentDescription="Voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

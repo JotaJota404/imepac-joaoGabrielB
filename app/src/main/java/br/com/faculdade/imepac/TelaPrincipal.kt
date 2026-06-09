@@ -15,6 +15,7 @@ class TelaPrincipal : AppCompatActivity() {
     private lateinit var text_boas_vindas: TextView
     private lateinit var bt_cadastrar_livro: LinearLayout
     private lateinit var bt_lista_livros: LinearLayout
+    private lateinit var bt_busca_direta: LinearLayout
     private lateinit var bt_meu_perfil: LinearLayout
     private lateinit var bt_gerar_seed: LinearLayout
 
@@ -53,6 +54,11 @@ class TelaPrincipal : AppCompatActivity() {
 
         bt_lista_livros.setOnClickListener {
             val intent = Intent(this, TelaListaLivros::class.java)
+            startActivity(intent)
+        }
+
+        bt_busca_direta.setOnClickListener {
+            val intent = Intent(this, TelaBuscaDireta::class.java)
             startActivity(intent)
         }
 
@@ -117,6 +123,7 @@ class TelaPrincipal : AppCompatActivity() {
         text_boas_vindas = findViewById(R.id.text_boas_vindas)
         bt_cadastrar_livro = findViewById(R.id.bt_cadastrar_livro)
         bt_lista_livros = findViewById(R.id.bt_lista_livros)
+        bt_busca_direta = findViewById(R.id.bt_busca_direta)
         bt_meu_perfil = findViewById(R.id.bt_meu_perfil)
         bt_gerar_seed = findViewById(R.id.bt_gerar_seed)
     }
